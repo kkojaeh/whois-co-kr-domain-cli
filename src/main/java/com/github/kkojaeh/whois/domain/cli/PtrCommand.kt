@@ -11,9 +11,7 @@ import java.util.concurrent.Callable
 class AddPtrCommand : Callable<Int> {
 
   @CommandLine.Mixin
-  val authenticate = AuthenticateCommand()
-  @CommandLine.Mixin
-  val domainModel = DomainCommand()
+  val domainCommand = DomainCommand()
 
   @CommandLine.Option(names = ["--host"], description = ["PTR record domain prefix"])
   var host: String = ""
@@ -22,11 +20,9 @@ class AddPtrCommand : Callable<Int> {
   var ptr: String = ""
 
   override fun call(): Int {
-    val connection = authenticate.login()
-    val model = domainModel.model(connection, authenticate.username)
+    val model = domainCommand.model()
     model.addPtr(host, ptr)
-    domainModel.save(connection, model)
-    return 0
+    return domainCommand.save(model)
   }
 
 }
@@ -39,9 +35,7 @@ class AddPtrCommand : Callable<Int> {
 class DeletePtrCommand : Callable<Int> {
 
   @CommandLine.Mixin
-  val authenticate = AuthenticateCommand()
-  @CommandLine.Mixin
-  val domainModel = DomainCommand()
+  val domainCommand = DomainCommand()
 
   @CommandLine.Option(names = ["--host"], description = ["PTR record domain prefix"])
   var host: String = ""
@@ -50,11 +44,9 @@ class DeletePtrCommand : Callable<Int> {
   var ptr: String = ""
 
   override fun call(): Int {
-    val connection = authenticate.login()
-    val model = domainModel.model(connection, authenticate.username)
+    val model = domainCommand.model()
     model.deletePtr(host, ptr)
-    domainModel.save(connection, model)
-    return 0
+    return domainCommand.save(model)
   }
 
 }

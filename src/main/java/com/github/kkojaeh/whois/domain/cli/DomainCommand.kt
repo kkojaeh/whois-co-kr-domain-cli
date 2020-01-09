@@ -22,15 +22,21 @@ open class DomainCommand {
 
   private val doneUrl = "https://domain.whois.co.kr/ns_service/service_done.php"
 
+  @CommandLine.Mixin
+  val authenticate = AuthenticateCommand()
+
   @CommandLine.Option(names = ["-d", "--domain"], description = ["google.com"], required = true)
   var domain: String = ""
 
-  fun model(connection: Connection, username: String): Domain {
+  private lateinit var connection: Connection
+
+  fun model(): Domain {
+    connection = authenticate.login()
     connection.url(pageUrl)
       .get()
     val txt = connection.url(infoUrl)
       .data("domain", domain)
-      .data("member", username)
+      .data("member", authenticate.username)
       .data("threadID", "threadID_0")
       .post()
       .text()
@@ -47,9 +53,9 @@ open class DomainCommand {
     return Domain(domain, info)
   }
 
-  fun save(connection: Connection, model: Domain) {
+  fun save(model: Domain): Int {
     if (!model.hasRequest()) {
-      return
+      return 0
     }
     connection.request().data().clear()
     model.toMap().forEach { name, values ->
@@ -83,6 +89,11 @@ open class DomainCommand {
       .post()
 
     model.apply()
+    val newModel = this.model()
+    if (model == newModel) {
+      return 0
+    }
+    return 1
   }
 
 }

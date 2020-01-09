@@ -11,9 +11,7 @@ import java.util.concurrent.Callable
 class AddMxCommand : Callable<Int> {
 
   @CommandLine.Mixin
-  val authenticate = AuthenticateCommand()
-  @CommandLine.Mixin
-  val domainModel = DomainCommand()
+  val domainCommand = DomainCommand()
 
   @CommandLine.Option(names = ["--host"], description = ["MX record domain prefix"])
   var host: String = ""
@@ -25,11 +23,9 @@ class AddMxCommand : Callable<Int> {
   var priority: String = ""
 
   override fun call(): Int {
-    val connection = authenticate.login()
-    val model = domainModel.model(connection, authenticate.username)
+    val model = domainCommand.model()
     model.addMx(host, mx, priority)
-    domainModel.save(connection, model)
-    return 0
+    return domainCommand.save(model)
   }
 
 }
@@ -42,9 +38,7 @@ class AddMxCommand : Callable<Int> {
 class DeleteMxCommand : Callable<Int> {
 
   @CommandLine.Mixin
-  val authenticate = AuthenticateCommand()
-  @CommandLine.Mixin
-  val domainModel = DomainCommand()
+  val domainCommand = DomainCommand()
 
   @CommandLine.Option(names = ["--host"], description = ["spf record domain prefix"])
   var host: String = ""
@@ -56,11 +50,9 @@ class DeleteMxCommand : Callable<Int> {
   var priority: String = ""
 
   override fun call(): Int {
-    val connection = authenticate.login()
-    val model = domainModel.model(connection, authenticate.username)
+    val model = domainCommand.model()
     model.deleteMx(host, mx, priority)
-    domainModel.save(connection, model)
-    return 0
+    return domainCommand.save(model)
   }
 
 }

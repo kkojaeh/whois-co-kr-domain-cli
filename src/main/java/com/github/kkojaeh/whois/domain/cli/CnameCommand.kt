@@ -11,9 +11,7 @@ import java.util.concurrent.Callable
 class AddCnameCommand : Callable<Int> {
 
   @CommandLine.Mixin
-  val authenticate = AuthenticateCommand()
-  @CommandLine.Mixin
-  val domainModel = DomainCommand()
+  val domainCommand = DomainCommand()
 
   @CommandLine.Option(names = ["--host"], description = ["CNAME record domain prefix"], required = true)
   var host: String = ""
@@ -22,11 +20,9 @@ class AddCnameCommand : Callable<Int> {
   var cname: String = ""
 
   override fun call(): Int {
-    val connection = authenticate.login()
-    val model = domainModel.model(connection, authenticate.username)
+    val model = domainCommand.model()
     model.addCname(host, cname)
-    domainModel.save(connection, model)
-    return 0
+    return domainCommand.save(model)
   }
 
 }
@@ -39,9 +35,7 @@ class AddCnameCommand : Callable<Int> {
 class DeleteCnameCommand : Callable<Int> {
 
   @CommandLine.Mixin
-  val authenticate = AuthenticateCommand()
-  @CommandLine.Mixin
-  val domainModel = DomainCommand()
+  val domainCommand = DomainCommand()
 
   @CommandLine.Option(names = ["--host"], description = ["CNAME record domain prefix"], required = true)
   var host: String = ""
@@ -50,11 +44,9 @@ class DeleteCnameCommand : Callable<Int> {
   var cname: String = ""
 
   override fun call(): Int {
-    val connection = authenticate.login()
-    val model = domainModel.model(connection, authenticate.username)
+    val model = domainCommand.model()
     model.deleteCname(host, cname)
-    domainModel.save(connection, model)
-    return 0
+    return domainCommand.save(model)
   }
 
 }

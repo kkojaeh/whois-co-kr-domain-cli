@@ -11,9 +11,7 @@ import java.util.concurrent.Callable
 class AddSpfCommand : Callable<Int> {
 
   @CommandLine.Mixin
-  val authenticate = AuthenticateCommand()
-  @CommandLine.Mixin
-  val domainModel = DomainCommand()
+  val domainCommand = DomainCommand()
 
   @CommandLine.Option(names = ["--host"], description = ["SPF(TXT) record domain prefix"], required = true)
   var host: String = ""
@@ -22,11 +20,9 @@ class AddSpfCommand : Callable<Int> {
   var spf: String = ""
 
   override fun call(): Int {
-    val connection = authenticate.login()
-    val model = domainModel.model(connection, authenticate.username)
+    val model = domainCommand.model()
     model.addSpf(host, spf)
-    domainModel.save(connection, model)
-    return 0
+    return domainCommand.save(model)
   }
 
 }
@@ -39,9 +35,7 @@ class AddSpfCommand : Callable<Int> {
 class DeleteSpfCommand : Callable<Int> {
 
   @CommandLine.Mixin
-  val authenticate = AuthenticateCommand()
-  @CommandLine.Mixin
-  val domainModel = DomainCommand()
+  val domainCommand = DomainCommand()
 
   @CommandLine.Option(names = ["--host"], description = ["SPF(TXT) record domain prefix"], required = true)
   var host: String = ""
@@ -50,11 +44,9 @@ class DeleteSpfCommand : Callable<Int> {
   var spf: String = ""
 
   override fun call(): Int {
-    val connection = authenticate.login()
-    val model = domainModel.model(connection, authenticate.username)
+    val model = domainCommand.model()
     model.deleteSpf(host, spf)
-    domainModel.save(connection, model)
-    return 0
+    return domainCommand.save(model)
   }
 
 }
