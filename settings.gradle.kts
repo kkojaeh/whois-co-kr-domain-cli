@@ -1,0 +1,1 @@
+rootProject.name = "whois-co-kr-domain-cli"

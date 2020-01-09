@@ -1,0 +1,7 @@
+spring:
+  main:
+    web-application-type: none
+  application:
+    name: whois-domain-cli
+  banner:
+    location: classpath:banner.txt
