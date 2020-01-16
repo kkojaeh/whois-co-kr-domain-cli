@@ -1,0 +1,17 @@
+name: CI
+
+on:
+  create:
+    tags:
+      - v*
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run gradle
+      run: ./gradlew build
+
