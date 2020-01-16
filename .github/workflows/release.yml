@@ -13,5 +13,5 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run gradle
-      run: ./gradlew build
+      run: ./gradlew clean build bintrayUpload -Pbintray.username=${{ secrets.BINTRAY_USERNAME }} -Pbintray.api.key=${{ secrets.BINTRAY_API_KEY }}
 
