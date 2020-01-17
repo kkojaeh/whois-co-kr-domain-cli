@@ -59,8 +59,6 @@ val sourcesJar by tasks.creating(Jar::class) {
 publishing {
   publications {
     create<MavenPublication>("bintray") {
-      println(project.group)
-      println(project.name)
       groupId = project.group as String?
       artifactId = project.name
       version = project.version as String?
