@@ -1,0 +1,17 @@
+name: CI
+
+on:
+  create:
+    tags:
+      - v*
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run gradle
+      run: ./gradlew clean build bintrayUpload -Pbintray.username=${{ secrets.BINTRAY_USERNAME }} -Pbintray.api.key=${{ secrets.BINTRAY_API_KEY }}
+

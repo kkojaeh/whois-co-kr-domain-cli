@@ -89,8 +89,8 @@ publishing {
 }
 
 bintray {
-  user = project.findProperty("bintrayUser").toString()
-  key = project.findProperty("bintrayKey").toString()
+  user = project.findProperty("bintray.username").toString()
+  key = project.findProperty("bintray.api.key").toString()
   publish = true
 
   setPublications("bintray")
