@@ -97,7 +97,7 @@ bintray {
   pkg.apply {
     repo = "maven"
     name = project.name
-    userOrg = "serpro69"
+    userOrg = user
     githubRepo = githubRepo
     vcsUrl = "https://github.com/kkojaeh/whois-co-kr-domain-cli"
     description = "Port of ruby faker gem written in kotlin"

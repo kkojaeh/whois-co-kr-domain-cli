@@ -6,6 +6,6 @@
 ### certbot renew
 
 <!--
-release: ./gradlew createRelease
+release: ./gradlew clean release
 
 -->
