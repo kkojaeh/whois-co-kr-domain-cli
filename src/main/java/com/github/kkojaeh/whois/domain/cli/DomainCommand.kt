@@ -47,7 +47,7 @@ open class DomainCommand {
       val name = split[0]
       val values = split[1]
       values.split("|")
-        .filter { it -> it.isNotEmpty() }
+        .filter { value -> value.isNotEmpty() }
         .forEach { value -> info.add(name, value) }
     }
     return Domain(domain, info)
