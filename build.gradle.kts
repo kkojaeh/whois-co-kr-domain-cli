@@ -6,7 +6,7 @@ plugins {
   id("io.spring.dependency-management") version "1.0.8.RELEASE"
   kotlin("jvm") version "1.3.61"
   kotlin("plugin.spring") version "1.3.61"
-  id("com.jfrog.bintray") version "1.7.3"
+  id("com.jfrog.bintray") version "1.8.1"
   id("maven")
   id("maven-publish")
   id("ch.netzwerg.release") version "1.2.3"
