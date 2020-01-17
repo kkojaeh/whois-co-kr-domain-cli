@@ -98,9 +98,9 @@ bintray {
     repo = "maven"
     name = project.name
     githubRepo = githubRepo
-    vcsUrl = "https://github.com/kkojaeh/whois-co-kr-domain-cli"
-    description = "Port of ruby faker gem written in kotlin"
-    setLabels("kotlin", "faker", "testing", "test-automation", "data", "generation")
+    vcsUrl = "https://github.com/kkojaeh/whois-co-kr-domain-cli.git"
+    description = "후이즈 도메인의 레코드를 수정하는 CLI"
+    setLabels("후이즈", "도메인", "whois", "record", "certbot", "domain")
     setLicenses("MIT")
     desc = description
     websiteUrl = "https://github.com/kkojaeh/whois-co-kr-domain-cli"
