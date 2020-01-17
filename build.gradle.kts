@@ -97,7 +97,6 @@ bintray {
   pkg.apply {
     repo = "maven"
     name = project.name
-    githubRepo = githubRepo
     vcsUrl = "https://github.com/kkojaeh/whois-co-kr-domain-cli.git"
     description = "후이즈 도메인의 레코드를 수정하는 CLI"
     setLabels("후이즈", "도메인", "whois", "record", "certbot", "domain")
@@ -105,6 +104,7 @@ bintray {
     desc = description
     websiteUrl = "https://github.com/kkojaeh/whois-co-kr-domain-cli"
     issueTrackerUrl = "https://github.com/kkojaeh/whois-co-kr-domain-cli/issues"
+    githubRepo = "kkojaeh/whois-co-kr-domain-cli"
     githubReleaseNotesFile = "README.md"
 
     version.apply {
