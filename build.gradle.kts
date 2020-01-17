@@ -59,6 +59,8 @@ val sourcesJar by tasks.creating(Jar::class) {
 publishing {
   publications {
     create<MavenPublication>("bintray") {
+      println(project.group)
+      println(project.name)
       groupId = project.group as String?
       artifactId = project.name
       version = project.version as String?
@@ -108,7 +110,7 @@ bintray {
     githubReleaseNotesFile = "README.md"
 
     version.apply {
-      name = project.name
+      name = project.version as String?
       desc = "https://github.com/kkojaeh/whois-co-kr-domain-cli"
       released = Date().toString()
       vcsTag = project.version as String?
