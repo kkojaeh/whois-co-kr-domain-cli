@@ -1,6 +1,16 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.util.*
 
+buildscript {
+  dependencies {
+    classpath("ru.fix:gradle-release-plugin:1.3.9")
+  }
+}
+
+apply {
+  plugin("ru.fix.gradle.release")
+}
+
 plugins {
   id("org.springframework.boot") version "2.2.2.RELEASE"
   id("io.spring.dependency-management") version "1.0.8.RELEASE"
@@ -9,8 +19,6 @@ plugins {
   id("com.jfrog.bintray") version "1.7.3"
   id("maven")
   id("maven-publish")
-  /*
-  id("signing")*/
 }
 
 java.sourceCompatibility = JavaVersion.VERSION_1_8
