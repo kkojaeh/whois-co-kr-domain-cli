@@ -12,14 +12,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Build by Gradle
+        run: ./gradlew clean build
       - name: Upload asset to Bintray
-        run: ./gradlew clean build bintrayUpload -Pbintray.username=${{ secrets.BINTRAY_USERNAME }} -Pbintray.api.key=${{ secrets.BINTRAY_API_KEY }}
+        run: ./gradlew bintrayUpload -Pbintray.username=${{ secrets.BINTRAY_USERNAME }} -Pbintray.api.key=${{ secrets.BINTRAY_API_KEY }}
+      - name: Copy to fixed name
+        run: cp build/libs/*.jar build/libs/whois-co-kr-domain-cli.jar
       - name: Upload asset to Github
         uses: actions-github/upload-to-release@v1.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          file: ./build/libs/*.jar
+          file: ./build/libs/whois-co-kr-domain-cli.jar
           # File type
           type: application/java-archive
 
