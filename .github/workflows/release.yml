@@ -1,15 +1,13 @@
 name: RELASE
 
 on:
-  create:
+  push:
     tags:
       - v*
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
       - name: Build by Gradle
@@ -18,12 +16,22 @@ jobs:
         run: ./gradlew bintrayUpload -Pbintray.username=${{ secrets.BINTRAY_USERNAME }} -Pbintray.api.key=${{ secrets.BINTRAY_API_KEY }}
       - name: Copy to fixed name
         run: cp build/libs/*.jar build/libs/whois-co-kr-domain-cli.jar
-      - name: Upload asset to Github
-        uses: actions-github/upload-to-release@v1.0.0
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          file: ./build/libs/whois-co-kr-domain-cli.jar
-          # File type
-          type: application/java-archive
-
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: Upload asset to Github
+        uses: actions/upload-release-asset@v1.0.1
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/libs/whois-co-kr-domain-cli.jar
+          asset_name: whois-co-kr-domain-cli.jar
+          asset_content_type: application/java-archive
