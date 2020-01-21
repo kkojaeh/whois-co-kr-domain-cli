@@ -1,4 +1,4 @@
-name: CI
+name: RELASE
 
 on:
   create:
@@ -11,7 +11,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Run gradle
-      run: ./gradlew clean build bintrayUpload -Pbintray.username=${{ secrets.BINTRAY_USERNAME }} -Pbintray.api.key=${{ secrets.BINTRAY_API_KEY }}
+      - uses: actions/checkout@v2
+      - name: Upload asset to Bintray
+        run: ./gradlew clean build bintrayUpload -Pbintray.username=${{ secrets.BINTRAY_USERNAME }} -Pbintray.api.key=${{ secrets.BINTRAY_API_KEY }}
+      - name: Upload asset to Github
+        uses: actions-github/upload-to-release@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          file: ./build/libs/*.jar
+          # File type
+          type: application/java-archive
 
