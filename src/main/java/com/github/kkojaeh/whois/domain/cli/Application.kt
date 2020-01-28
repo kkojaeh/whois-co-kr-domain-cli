@@ -8,6 +8,8 @@ import java.util.concurrent.Callable
 
 
 @CommandLine.Command(
+  customSynopsis = ["java -jar whois-co-kr-domain-cli.jar [command] [options]"],
+  description = ["후이즈(http://whois.co.kr) 도메인의 레코드를 변경합니다.", "각 [command] 와 --help 옵션을 이용하여 실행 옵션을 확인하세요", "ex) java -jar whois-co-kr-domain-cli.jar add-spf --help"],
   subcommands = [
     AddSpfCommand::class,
     DeleteSpfCommand::class,
@@ -31,7 +33,7 @@ class Application : CommandLineRunner, Callable<Int> {
   }
 
   override fun call(): Int {
-    println("http://whois.co.kr domain record changer")
+    println(CommandLine(this).usageMessage)
     return 0
   }
 }
