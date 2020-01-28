@@ -36,7 +36,7 @@ Commands:
 
 ### certbot renew
 
-수동을 인증을 재생성할 때 도메인 소유권 확인을 위한 훅을 사용해야 합니다.
+수동으로 인증을 재생성할 때 도메인 소유권 확인을 위한 훅을 사용해야 합니다.
 https://certbot.eff.org/docs/using.html#pre-and-post-validation-hooks 을 참조합니다.
 아래는 whois-co-kr-domain-cli 를 사용하여 소유권을 인정받는 예제입니다.
 ```
